@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+    postgres:
+        container_name: postgres
+        image: postgres:latest
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./data/postgres:/data/postgres
+            - ./.docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+        env_file:
+            - docker.env
+        networks:
+            - postgres
+   
+networks:
+    postgres:
+        driver: bridge
